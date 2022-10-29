@@ -8,4 +8,4 @@ From the coman line use the command
 ```bash
 python3 moodleScraper.py <username> <password>
 ```
-where <username> is your username, while <password> is your password.
+where \<username\> is your username, while \<password\> is your password.
