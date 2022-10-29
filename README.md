@@ -6,9 +6,12 @@ more precisely thei stem.elearning page.
 ## Comand
 From the coman line use the command
 ```bash
-python3 moodleScraper.py <username> <password>
+python3 moodleScraper.py <username> <password> <course_link>
 ```
-where \<username\> is your username, while \<password\> is your password.
+where: 
+\<username\> is your username
+\<password\> is your password
+\<course_link\> is the link of the moodle page of the course. 
 
 ## Issues
 ### Password Problems
