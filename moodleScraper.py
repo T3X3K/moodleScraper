@@ -27,6 +27,7 @@ driver = webdriver.Chrome(service=webdriver_service) # add options=chrome_option
 credentials = [sys.argv[1], sys.argv[2]]
 login_url = "https://stem.elearning.unipd.it/dfa/auth/shibboleth/index.php"
 driver.get(login_url)
+path = sys.argv[4]
 
 t = 10 # tempo d'attesa 
 
@@ -85,10 +86,10 @@ for item in linkers:
 for address, name in resources:
     response = s.get(address)
     size = len(name)
-    open(name[:size-5]+".pdf", 'wb').write(response.content)
+    open(path+name[:size-5]+".pdf", 'wb').write(response.content)
 for address, name in contents:
     response = s.get(address)
-    open(name, 'wb').write(response.content)
+    open(path+name, 'wb').write(response.content)
 
 
 for folder in folders:
@@ -97,11 +98,12 @@ for folder in folders:
     linkers = []
     contents = []
     for a in soup.find_all('a', href=True):
-        linkers.append([a['href'],a.get_text()])
+        if 'https' in a['href']:
+            linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])
     for item in linkers:
         for word in item:
                 if "content" in word:
                         contents.append(item)
     for address, name in contents:
         response = s.get(address)
-        open(name, 'wb').write(response.content)
+        open(path+name, 'wb').write(response.content)

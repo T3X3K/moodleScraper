@@ -6,12 +6,14 @@ more precisely thei stem.elearning page.
 ## Comand
 From the coman line use the command
 ```bash
-python3 moodleScraper.py <username> <password> <course_link>
+python3 moodleScraper.py <username> <password> <course_link> <path>
 ```
 where: 
 \<username\> is your username
 \<password\> is your password
-\<course_link\> is the link of the moodle page of the course. 
+\<course_link\> is the link of the moodle page of the course
+\<path\> is the path where you want to download the files. For instance, for wsl users,
+to download them in my desktop I use /mnt/c/Users/S3XYT3X3K/Desktop/ (not true, but you get the point)
 
 ## Crashes 
 So far, it crashes for two reasons
@@ -33,10 +35,6 @@ If you have any ideas on why this happens and you have a more general solution f
 feel free to help. 
 
 ## Future Plans
-### Customizable path
-It would be nice if the program downloaded the files in a folder of your choice. This is especially tricky
-because I use the WSL to program, which makes it tricky for me.
-
 ### Log
 If you use some software to scribble on the pdfs, you will likely loose all your notes because this 
 program will overwrite everything everytime it's used. On the other hand, some of your professors 
@@ -52,7 +50,7 @@ command line prompt.
 ## Issues
 ### Type of files
 So far, it assumes all files are pdfs. It's easy to improve it, but it will take some time. 
- 
+
 ### Failed Login
 You won't know when the login is successful. Sometimes, it will give the following error:
 ```bash
