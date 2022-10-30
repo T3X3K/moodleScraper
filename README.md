@@ -1,4 +1,4 @@
-# moodleScraper
+# Moodle Scraper
 If you're using the Moodle.org platform for your Uni courses, this utility will allow you to download 
 all files from your courses. So far, this software is built to work on University of Padoa's moodle page,
 more precisely thei stem.elearning page.
@@ -13,7 +13,37 @@ where:
 \<password\> is your password
 \<course_link\> is the link of the moodle page of the course. 
 
+## Crashes 
+So far, it crashes for two reasons
+1. fails to login
+2. has to open files with weird names
+
+The simple solution for problem n. 1 is to execute multiple times the program until it works.
+
+### fails to login
+The problem is with selenium. It doesn't send correctly the username or the password, or it doesn't click 
+what is supposed to click. As it's random when it will work or not, you can just rerun the program a 
+couple of times and it will work.
+
+### has to open files with weird names
+Originally, if the file had '(', ')' or '/' in its name, it would crash. Now it will substitute this 
+characters with others because of the 
+`linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])'.
+If you have any ideas on why this happens and you have a more general solution for this problem, 
+feel free to help. 
+
 ## Future Plans
+### Customizable path
+It would be nice if the program downloaded the files in a folder of your choice. This is especially tricky
+because I use the WSL to program, which makes it tricky for me.
+
+### Log
+If you use some software to scribble on the pdfs, you will likely loose all your notes because this 
+program will overwrite everything everytime it's used. On the other hand, some of your professors 
+may continuosly upload the same files after making corrections, so you do want in some cases the program to 
+re-download somethings. To solve this conundrum, I was thinking to add a log from where this program will know 
+wether or not a file has already been downloaded and it doesn't need to do it again. Downloaded. 
+
 ### Password Problems
 After a while, your password may expire. This program does not yet know when this happens. It would be 
 important in future updates to understand when this occurs, and possibily to allow you to update it from 
@@ -68,3 +98,5 @@ Traceback (most recent call last):
     open(name[:size-5]+".pdf", 'wb').write(response.content)
 FileNotFoundError: [Errno 2] No such file or directory: 'Calendario delle lezioni (modificato il 24/10/2022).pdf'
 ```
+Originally, I saw this problem happens when the file [[has to open files with weird names]](#has-to-open-files-with-weird-names). 
+Look into that part of the document.

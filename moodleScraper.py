@@ -68,7 +68,8 @@ resources = []
 folders = []
 contents = []
 for a in soup.find_all('a', href=True):
-    linkers.append([a['href'],a.get_text()])
+    if 'https' in a['href']:
+        linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])
 
 # gets all items
 for item in linkers:
