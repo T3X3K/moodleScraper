@@ -50,6 +50,9 @@ important in future updates to understand when this occurs, and possibily to all
 command line prompt.
 
 ## Issues
+### Type of files
+So far, it assumes all files are pdfs. It's easy to improve it, but it will take some time. 
+ 
 ### Failed Login
 You won't know when the login is successful. Sometimes, it will give the following error:
 ```bash
