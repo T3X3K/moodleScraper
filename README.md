@@ -3,8 +3,8 @@ If you're using the Moodle.org platform for your Uni courses, this utility will 
 all files from your courses. So far, this software is built to work on University of Padoa's moodle page,
 more precisely thei stem.elearning page.
 
-## Comand
-From the coman line use the command
+## Usage
+From the command line use the command (after having downloaded the [required stuff](#required-stuff))
 ```bash
 python3 moodleScraper.py <username> <password> <course_link> <path>
 ```
@@ -14,6 +14,17 @@ where:
 \<course_link\> is the link of the moodle page of the course
 \<path\> is the path where you want to download the files. For instance, for wsl users,
 to download them in my desktop I use /mnt/c/Users/S3XYT3X3K/Desktop/ (not true, but you get the point)
+
+### Required Stuff
+You'll need to install the selenium, beautifulsoup and requests libraries if you don't already have them,
+using the pip or pip3 command, like:
+```bash
+pip install selenium requests beautifulsoup4
+```
+
+Also, you'll need to install what is called a chrome driver which will allow python to use google. 
+This [youtube video](https://www.youtube.com/watch?v=2WVxzRD6Ds4) should help you. Update the path of
+where you've installed in the webdriver_service, around line 20.
 
 ## Crashes 
 So far, it crashes for two reasons
@@ -99,5 +110,5 @@ Traceback (most recent call last):
     open(name[:size-5]+".pdf", 'wb').write(response.content)
 FileNotFoundError: [Errno 2] No such file or directory: 'Calendario delle lezioni (modificato il 24/10/2022).pdf'
 ```
-Originally, I saw this problem happens when the file [[has to open files with weird names]](#has-to-open-files-with-weird-names). 
+Originally, I saw this problem happens when the file [has to open files with weird names](#has-to-open-files-with-weird-names). 
 Look into that part of the document.
