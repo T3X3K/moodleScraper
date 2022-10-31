@@ -13,7 +13,12 @@ where:
 \<password\> is your password \
 \<course_link\> is the link of the moodle page of the course \
 \<path\> is the path where you want to download the files. For instance, for wsl users,
-to download them in my desktop I use /mnt/c/Users/S3XYT3X3K/Desktop/ (not true, but you get the point).
+to download them in my desktop I use /mnt/c/Users/S3XYT3X3K/Desktop/ (not true, but you get the point). \
+Actually, what I do is run the command
+```bash
+while true; do python3 moodleScraper.py <username> <password> <course_link> <path> && break; done
+```
+as I've explained [later](#crashes)
 
 ### Required Stuff
 You'll need to install the selenium, beautifulsoup and requests libraries if you don't already have them,
@@ -28,10 +33,19 @@ where you've installed in the webdriver_service, around line 20.
 
 ## Crashes 
 So far, it crashes for two reasons
-1. fails to login
+1. fails to login because sometimes it's naughty
 2. has to open files with weird names
 
 The simple solution for problem n. 1 is to execute multiple times the program until it works.
+It can be annoying, so what I do is I use a while loop to tell the bash terminal to rerun the program 
+until it works. This can be done this way:
+```bash
+while true; do ./out && break; done
+```
+where out is a bash file where I've written a command
+```bash
+python3 moodleScraper.py <username> <password> <course_link> <path>
+```
 
 ### fails to login
 The problem is with selenium. It doesn't send correctly the username or the password, or it doesn't click 
@@ -52,6 +66,10 @@ program will overwrite everything everytime it's used. On the other hand, some o
 may continuosly upload the same files after making corrections, so you do want in some cases the program to 
 re-download somethings. To solve this conundrum, I was thinking to add a log from where this program will know 
 wether or not a file has already been downloaded and it doesn't need to do it again. Downloaded. 
+
+### Subfolders
+Maybe it would be nice if the scraper didn't just download all the files together. Rather, it may be cool
+if it created subfolders. Have to think about it. 
 
 ### Password Problems
 After a while, your password may expire. This program does not yet know when this happens. It would be 
