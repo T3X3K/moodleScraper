@@ -9,18 +9,18 @@ import requests
 import sys
 
 # this block doesn't allow to open tab
-"""from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options
 
 ## Setup chrome options
 chrome_options = Options()
 chrome_options.add_argument("--headless") # Ensures GUI is off
-chrome_options.add_argument("--no-sandbox")"""
+chrome_options.add_argument("--no-sandbox")
 
 # Set path to chromedriver as per my configuration
 webdriver_service = Service(f"../chromedriver/stable/chromedriver")
 
 # Choose Chrome Browser
-driver = webdriver.Chrome(service=webdriver_service) # add options=chrome_options if you don't want chrome tab to open
+driver = webdriver.Chrome(service=webdriver_service, options=chrome_options) # add options=chrome_options if you don't want chrome tab to open
 
 ########### LOGIN ACCESS ###########
 ###### open sso login page and puts in credentials
