@@ -68,15 +68,15 @@ You won't know when the login is successful. Sometimes, it will give the followi
 Traceback (most recent call last):
   File "moodleScraper.py", line 41, in <module>
     username = WebDriverWait(driver, t).until(EC.element_to_be_clickable(
-  File "/home/toxin21/.local/lib/python3.8/site-packages/selenium/webdriver/support/wait.py", line 78, in until
+  File "/home/behappy/.local/lib/python3.8/site-packages/selenium/webdriver/support/wait.py", line 78, in until
     value = method(self._driver)
-  File "/home/toxin21/.local/lib/python3.8/site-packages/selenium/webdriver/support/expected_conditions.py", line 326, in _predicate
+  File "/home/behappy/.local/lib/python3.8/site-packages/selenium/webdriver/support/expected_conditions.py", line 326, in _predicate
     target = driver.find_element(*target)  # grab element at locator
-  File "/home/toxin21/.local/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 1248, in find_element
+  File "/home/behappy/.local/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 1248, in find_element
     return self.execute(Command.FIND_ELEMENT, {
-  File "/home/toxin21/.local/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 425, in execute
+  File "/home/behappy/.local/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 425, in execute
     self.error_handler.check_response(response)
-  File "/home/toxin21/.local/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 247, in check_response
+  File "/home/behappy/.local/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 247, in check_response
     raise exception_class(message, screen, stacktrace)
 selenium.common.exceptions.InvalidArgumentException: Message: invalid argument: invalid locator
   (Session info: chrome=103.0.5060.114)
