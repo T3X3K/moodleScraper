@@ -9,11 +9,11 @@ From the command line use the command (after having downloaded the [required stu
 python3 moodleScraper.py <username> <password> <course_link> <path>
 ```
 where: 
-\<username\> is your username
-\<password\> is your password
-\<course_link\> is the link of the moodle page of the course
+\<username\> is your username \
+\<password\> is your password \
+\<course_link\> is the link of the moodle page of the course \
 \<path\> is the path where you want to download the files. For instance, for wsl users,
-to download them in my desktop I use /mnt/c/Users/S3XYT3X3K/Desktop/ (not true, but you get the point)
+to download them in my desktop I use /mnt/c/Users/S3XYT3X3K/Desktop/ (not true, but you get the point).
 
 ### Required Stuff
 You'll need to install the selenium, beautifulsoup and requests libraries if you don't already have them,
