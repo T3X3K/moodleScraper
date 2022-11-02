@@ -1,7 +1,7 @@
 # Moodle Scraper
 If you're using the Moodle.org platform for your Uni courses, this utility will allow you to download 
 all files from your courses. So far, this software is built to work on University of Padoa's moodle page,
-more precisely thei stem.elearning page.
+more precisely the stem.elearning page.
 
 ## Usage
 From the command line use the command (after having downloaded the [required stuff](#required-stuff))
@@ -42,7 +42,7 @@ until it works. This can be done this way:
 ```bash
 while true; do ./out && break; done
 ```
-where out is a bash file where I've written a command
+where out is a bash file where I've written the command
 ```bash
 python3 moodleScraper.py <username> <password> <course_link> <path>
 ```
@@ -53,13 +53,17 @@ what is supposed to click. As it's random when it will work or not, you can just
 couple of times and it will work.
 
 ### has to open files with weird names
-Originally, if the file had '(', ')' or '/' in its name, it would crash. Now it will substitute this 
+Originally, if the file had '(', ')' or '/' in its name, the program would crash. Now it will substitute this 
 characters with others because of the 
 `linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])'.
 If you have any ideas on why this happens and you have a more general solution for this problem, 
 feel free to help. 
 
 ## Future Plans
+### Files extensions
+When on the main course page, the program will download everythiing as pdf. Of course, in the future 
+the program needs to assign the right extension to each file.
+
 ### Log
 If you use some software to scribble on the pdfs, you will likely loose all your notes because this 
 program will overwrite everything everytime it's used. On the other hand, some of your professors 
@@ -75,6 +79,10 @@ if it created subfolders. Have to think about it.
 After a while, your password may expire. This program does not yet know when this happens. It would be 
 important in future updates to understand when this occurs, and possibily to allow you to update it from 
 command line prompt.
+
+### safari and mozzila-driver
+I guess not everybody uses chrome, and thus some people would prefer if there was the option to 
+have another driver instead of the chromedriver
 
 ## Issues
 ### Type of files
