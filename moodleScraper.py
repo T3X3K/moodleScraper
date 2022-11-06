@@ -1,3 +1,11 @@
+def cookies(driver):
+    s = requests.Session()
+    selenium_user_agent = driver.execute_script("return navigator.userAgent;")
+    s.headers.update({"user-agent": selenium_user_agent})
+    for cookie in driver.get_cookies():
+        s.cookies.set(cookie['name'], cookie['value'], domain=cookie['domain'])
+    return s
+
 ########### PRELIMINARI ###########
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -32,11 +40,7 @@ path = sys.argv[4]
 t = 10 # tempo d'attesa 
 
 # save session's cookies
-s = requests.Session()
-selenium_user_agent = driver.execute_script("return navigator.userAgent;")
-s.headers.update({"user-agent": selenium_user_agent})
-for cookie in driver.get_cookies():
-    s.cookies.set(cookie['name'], cookie['value'], domain=cookie['domain'])
+s = cookies(driver)
 
 # puts in credentials
 username = WebDriverWait(driver, t).until(EC.element_to_be_clickable(
@@ -60,6 +64,7 @@ driver.switch_to.window(driver.window_handles[1])
 driver.get(sys.argv[3])
 driver.get('https://stem.elearning.unipd.it/login/index.php')
 driver.get('https://stem.elearning.unipd.it/auth/shibboleth/index.php')
+s = cookies(driver)
 
 ########### FILE DOWNLOAD ###########
 # gets all the links in the page 
