@@ -15,6 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from bs4 import BeautifulSoup
 import requests
 import sys
+import os
 
 # this block doesn't allow to open tab
 from selenium.webdriver.chrome.options import Options
@@ -73,6 +74,8 @@ linkers = []
 resources = []  
 folders = []
 contents = []
+assignments = []
+
 for a in soup.find_all('a', href=True):
     if 'https' in a['href']:
         linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])
@@ -83,21 +86,26 @@ for item in linkers:
         if "resource" in word:
             resources.append(item)
         if "folder" in word:
-            folders.append(word)
+            folders.append(item)
         if "content" in word:
             contents.append(item)
+        if "assign" in word:
+            assignments.append(item)
 
-# download pdf resources and contents
+# download from main page
 for address, name in resources:
     response = s.get(address)
-    size = len(name)
-    open(path+name[:size-5]+".pdf", 'wb').write(response.content)
+    #size = len(name)
+    open(path+name[:-5]+".pdf", 'wb').write(response.content)
 for address, name in contents:
     response = s.get(address)
     open(path+name, 'wb').write(response.content)
 
-
-for folder in folders:
+# download from folders
+for folder, folder_name in folders:
+    npath = path+folder_name[:-9]
+    if not os.path.exists(npath):
+        os.mkdir(npath)
     driver.get(folder)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     linkers = []
@@ -111,4 +119,24 @@ for folder in folders:
                         contents.append(item)
     for address, name in contents:
         response = s.get(address)
-        open(path+name, 'wb').write(response.content)
+        open(npath+"/"+name, 'wb').write(response.content)
+
+# download from assignments
+for assign, assign_name in assignments:
+    npath = path+assign_name[:-8]
+    if not os.path.exists(npath):
+        os.mkdir(npath)
+    driver.get(assign)
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    linkers = []
+    contents = []
+    for a in soup.find_all('a', href=True):
+        if 'https' in a['href']:
+            linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])
+    for item in linkers:
+        for word in item:
+                if "pluginfile" in word:
+                        contents.append(item)
+    for address, name in contents:
+        response = s.get(address)
+        open(npath+"/"+name, 'wb').write(response.content)
