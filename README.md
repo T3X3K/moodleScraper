@@ -6,14 +6,16 @@ more precisely the stem.elearning page.
 ## Usage
 From the command line use the command (after having downloaded the [required stuff](#required-stuff))
 ```bash
-python3 moodleScraper.py <username> <password> <course_link> <path>
+python3 moodleScraper.py <username> <password> <course_link_1> <path_1> <course_link_2> <path_2> ...
 ```
 where: 
 \<username\> is your username \
 \<password\> is your password \
-\<course_link\> is the link of the moodle page of the course \
-\<path\> is the path where you want to download the files. For instance, for wsl users,
-to download them in my desktop I use /mnt/c/Users/S3XYT3X3K/Desktop/ (not true, but you get the point). \
+\<course_link_1\> is the link of the moodle page of the first course \
+\<path\> is the path where you want to download the first course's files. For instance, for wsl users,
+to download them in my desktop I use /mnt/c/Users/T3X3K/Desktop/ (not true, but you get the point).
+You can actually download more than one course at a time, as you see in the example.
+
 Actually, what I do is run the command
 ```bash
 while true; do python3 moodleScraper.py <username> <password> <course_link> <path> && break; done
@@ -49,7 +51,7 @@ python3 moodleScraper.py <username> <password> <course_link> <path>
 
 ### fails to login
 The problem is with selenium. It doesn't send correctly the username or the password, or it doesn't click 
-what is supposed to click. As it's random when it will work or not, you can just rerun the program a 
+what is supposed to click. As errors occur randomly, you can just rerun the program a 
 couple of times and it will work.
 
 ### has to open files with weird names
@@ -57,7 +59,8 @@ Originally, if the file had '(', ')' or '/' in its name, the program would crash
 characters with others because of the 
 `linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])'.
 If you have any ideas on why this happens and you have a more general solution for this problem, 
-feel free to help. 
+feel free to help. It hasn't happened in a while, and I've started to think it was just a coincidence and
+something else might have been the problem. Dunno, should check someday.
 
 ## Future Plans
 ### Files extensions
@@ -69,7 +72,11 @@ If you use some software to scribble on the pdfs, you will likely loose all your
 program will overwrite everything everytime it's used. On the other hand, some of your professors 
 may continuosly upload the same files after making corrections, so you do want in some cases the program to 
 re-download somethings. To solve this conundrum, I was thinking to add a log from where this program will know 
-wether or not a file has already been downloaded and it doesn't need to do it again. Downloaded. 
+wether or not a file has already been downloaded and it doesn't need to do it again. Downloaded.
+
+News: The program now checks whether or not the file has been uploaded to the moodle after the last time you've
+scraped it. If it hasn't, it doesn't download it. If the file on moodle has been modified, the scraper
+will download it without overwriting the previus file.
 
 ### Subfolders
 Maybe it would be nice if the scraper didn't just download all the files together. Rather, it may be cool
