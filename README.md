@@ -87,7 +87,7 @@ After a while, your password may expire. This program does not yet know when thi
 important in future updates to understand when this occurs, and possibily to allow you to update it from 
 command line prompt.
 
-### safari and mozzila-driver
+### Safari and mozzila-driver
 I guess not everybody uses chrome, and thus some people would prefer if there was the option to 
 have another driver instead of the chromedriver
 
