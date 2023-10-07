@@ -1,6 +1,6 @@
 # Moodle Scraper
 If you're using the Moodle.org platform for your Uni courses, this utility will allow you to download 
-all files from your courses. So far, this software is built to work on University of Padoa's moodle page,
+all files from your courses. So far, this program is built to work on University of Padoa's moodle page,
 more precisely the stem.elearning page.
 
 ## Usage
@@ -12,8 +12,8 @@ where:
 \<username\> is your username \
 \<password\> is your password \
 \<course_link_1\> is the link of the moodle page of the first course \
-\<path\> is the path where you want to download the first course's files. For instance, for wsl users,
-to download them in my desktop I use /mnt/c/Users/T3X3K/Desktop/ (not true, but you get the point).
+\<path_1\> is the path where you want to download the first course's files. For instance, for wsl users,
+to download them in my desktop I use /mnt/c/Users/T3X3K/Desktop/
 You can actually download more than one course at a time, as you see in the example.
 
 Actually, what I do is run the command
@@ -37,8 +37,10 @@ where you've installed in the webdriver_service, around line 20.
 So far, it crashes for two reasons
 1. fails to login because sometimes it's naughty
 2. has to open files with weird names
+3. bonus: expired password
 
-The simple solution for problem n. 1 is to execute multiple times the program until it works.
+Luckily, 99% it crashes because of problem n. 1. The simple solutio is to execute multiple times
+the program until it works.
 It can be annoying, so what I do is I use a while loop to tell the bash terminal to rerun the program 
 until it works. This can be done this way:
 ```bash
@@ -62,21 +64,19 @@ If you have any ideas on why this happens and you have a more general solution f
 feel free to help. It hasn't happened in a while, and I've started to think it was just a coincidence and
 something else might have been the problem. Dunno, should check someday.
 
+### Expired password
+
+Only now that I'm updating the code this problem might have come up. Because so much other stuff
+was going on, I'm not entirely sure this was the problem, but it could be. The program doesn't
+know how to understand if the password has expired, so it won't tell you anything about it,
+but realistically you'll find out you need to change your password without the need of
+the scraper (personally speaking at least). Hence, I'm not doing anything about it, but I'm
+happy if you want to contribute.
+
 ## Future Plans
 ### Files extensions
-When on the main course page, the program will download everythiing as pdf. Of course, in the future 
+When on the main course page, the program will download everything as pdf. Of course, in the future 
 the program needs to assign the right extension to each file.
-
-### Log
-If you use some software to scribble on the pdfs, you will likely loose all your notes because this 
-program will overwrite everything everytime it's used. On the other hand, some of your professors 
-may continuosly upload the same files after making corrections, so you do want in some cases the program to 
-re-download somethings. To solve this conundrum, I was thinking to add a log from where this program will know 
-wether or not a file has already been downloaded and it doesn't need to do it again. Downloaded.
-
-News: The program now checks whether or not the file has been uploaded to the moodle after the last time you've
-scraped it. If it hasn't, it doesn't download it. If the file on moodle has been modified, the scraper
-will download it without overwriting the previus file.
 
 ### Subfolders
 Maybe it would be nice if the scraper didn't just download all the files together. Rather, it may be cool
@@ -90,6 +90,16 @@ command line prompt.
 ### safari and mozzila-driver
 I guess not everybody uses chrome, and thus some people would prefer if there was the option to 
 have another driver instead of the chromedriver
+
+## FAQ
+
+If I modify a file, will the scrape overwrite the edits while redownloading it?
+The program now checks whether or not the file has been uploaded to the moodle after the last time you've
+scraped it. If it hasn't, it doesn't download it. If the file on moodle has been modified, the scraper
+will download it without overwriting the previus file.
+
+Does it download videos?
+It actually doesn't do so, but adding this feature shouldn't be a problem. It's just that we never needed it.
 
 ## Issues
 ### Type of files
@@ -145,3 +155,34 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Calendario delle lezion
 ```
 Originally, I saw this problem happens when the file [has to open files with weird names](#has-to-open-files-with-weird-names). 
 Look into that part of the document.
+
+# Google.py
+
+Little utility, found it on Tiff in Tech's youtube video (also present in some other tutorial).
+It will quickly print on the command line around ten results (title, url, description) of a google search of your choice.
+Actually, ten in italian and ten in english.
+
+For instance, if you want to know who Gregg Popovich is you can run the following command
+
+```bash
+python google.py gregg popovich
+```
+
+the first results you'll get shoul look like
+
+```bash
+GREGG POPOVICH  https://it.wikipedia.org/wiki/Gregg_Popovich
+Gregg Charles Popovich (East Chicago, 28 gennaio 1949) è un allenatore di pallacanestro e dirigente sportivo statunitense di origine serba e croata, ...
+GREGG POPOVICH  https://en.wikipedia.org/wiki/Gregg_Popovich
+Gregg Charles Popovich (born January 28, 1949) is an American professional basketball coach and executive who is the president and head coach 
+```
+
+Actually, thanks to the termcolor package, the text you see should be coloured, to improve readibilty.
+
+## Required Packages
+
+You'll need the googlesearch package for sure; on top of that, you might need the termcolor one
+
+```bash
+pip install googlesearch-python termcolor
+```

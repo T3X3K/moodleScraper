@@ -27,11 +27,15 @@ def convert_time(stringa):
 
 def scavage_links(driver):
     soup = BeautifulSoup(driver.page_source, 'html.parser')
+    
+    # close left-side manu if open
+    if soup.find_all("div", id="theme_boost-drawers-courseindex") and soup.find_all("div", {"class": "drawer drawer-left d-print-none show"}):
+        driver.find_element(by=By.XPATH, value='//*[@id="theme_boost-drawers-courseindex"]/div[1]/button').click()
     linkers = []  
     
     for a in soup.find_all('a', href=True):
         if 'https' in a['href']:
-            linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])
+            linkers.append([a['href'],a.get_text(strip=True).replace('(','').replace(')','').replace(' ','_').replace('/','.')])
     return linkers
 
 def download(address, fpath, name):
@@ -43,16 +47,16 @@ def download(address, fpath, name):
             while os.path.exists(fpath):
                 if fpath[-6].isdigit() and fpath[-5] == ")":
                     i = i + 1
-                    fpath[-5] = str(i)
+                    fpath = fpath[:-7] + str(i) + fpath[-5:]
                 else:
                     fpath = fpath[0:-4] + "_(" + str(i) + ")" + fpath[-4:]
             open(fpath, 'wb').write(response.content)
             print("Downloaded " + name)
     else:
-        print("Non si può scaricare" + name)
+        print("Non si può scaricare " + name)
 
 ### CHROME SETTINGS
-# this block doesn't allow to open tab
+# the following block doesn't allow to open tab
 from selenium.webdriver.chrome.options import Options
 
 ## Setup chrome options
@@ -65,6 +69,7 @@ webdriver_service = Service(f"../chromedriver/stable/chromedriver")
 
 # Choose Chrome Browser
 driver = webdriver.Chrome(service=webdriver_service, options=chrome_options) # add options=chrome_options if you don't want chrome tab to open
+
 
 ########### LOGIN ACCESS ###########
 ###### open sso login page and puts in credentials
@@ -79,7 +84,7 @@ s = cookies(driver)
 
 # puts in credentials
 username = WebDriverWait(driver, t).until(EC.element_to_be_clickable(
-    {By.CSS_SELECTOR, "input[name='j_username_js']"}))
+    {By.XPATH, '//*[@id="j_username_js"]'}))#if using css selector: input[name='j_username_js']
 username.clear() # makes sure field is empty
 username.send_keys(credentials[0]) # prints a1.bains in the field
 
@@ -96,7 +101,6 @@ accedi = WebDriverWait(driver, t).until(EC.element_to_be_clickable(
 #### navigate to moodle page
 driver.execute_script("window.open('');")
 driver.switch_to.window(driver.window_handles[1])
-driver.get(sys.argv[3])
 driver.get('https://stem.elearning.unipd.it/login/index.php')
 driver.get('https://stem.elearning.unipd.it/auth/shibboleth/index.php')
 s = cookies(driver)
@@ -115,8 +119,12 @@ for i in range(3, N, 2):
     now = datetime.now()
     stamp = mktime(now.timetuple())
     today = format_date_time(stamp)
-    with open(path+'.last_date','r') as f:
-        last = f.read()
+    if os.path.isfile(path+'.last_date'):
+        with open(path+'.last_date','r') as f:
+            last = f.read()
+    else:
+        os.mkdir(path)
+        last = "Sat, 19 Aug 2023 20:33:29 GMT"
     last = convert_time(last)
 
     ########### FILE DOWNLOAD ###########
@@ -141,7 +149,7 @@ for i in range(3, N, 2):
 
     # download from main page
     for address, name in resources:
-        full_name = path+name[:-5]+".pdf"
+        full_name = path+name[:-4]+".pdf"
         download(address, full_name, name)
     for address, name in contents:
         download(address, path+name, name)
