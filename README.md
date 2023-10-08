@@ -158,9 +158,11 @@ Look into that part of the document.
 
 # Google.py
 
-Little utility, found it on Tiff in Tech's youtube video (also present in some other tutorial).
+Little utility, inspired by Tiff in Tech's youtube video (also present in some other tutorial).
 It will quickly print on the command line around ten results (title, url, description) of a google search of your choice.
-Actually, ten in italian and ten in english.
+Actually, ten in italian and ten in english alternating, the most
+relevant of which will be printend last so you easily see them.
+If you have selenium installed, by typing a number it will open the corresponing page. Press 'q' to close the program.
 
 For instance, if you want to know who Gregg Popovich is you can run the following command
 
@@ -168,7 +170,7 @@ For instance, if you want to know who Gregg Popovich is you can run the followin
 python google.py gregg popovich
 ```
 
-the first results you'll get shoul look like
+the first results you'll get should look like
 
 ```bash
 GREGG POPOVICH  https://it.wikipedia.org/wiki/Gregg_Popovich
