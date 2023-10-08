@@ -51,12 +51,12 @@ where out is a bash file where I've written the command
 python3 moodleScraper.py <username> <password> <course_link> <path>
 ```
 
-### fails to login
+### Fails to login
 The problem is with selenium. It doesn't send correctly the username or the password, or it doesn't click 
 what is supposed to click. As errors occur randomly, you can just rerun the program a 
 couple of times and it will work.
 
-### has to open files with weird names
+### Has to open files with weird names
 Originally, if the file had '(', ')' or '/' in its name, the program would crash. Now it will substitute this 
 characters with others because of the 
 `linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])'.
@@ -87,7 +87,7 @@ After a while, your password may expire. This program does not yet know when thi
 important in future updates to understand when this occurs, and possibily to allow you to update it from 
 command line prompt.
 
-### safari and mozzila-driver
+### Safari and mozzila-driver
 I guess not everybody uses chrome, and thus some people would prefer if there was the option to 
 have another driver instead of the chromedriver
 
