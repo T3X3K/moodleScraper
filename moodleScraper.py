@@ -119,11 +119,12 @@ for i in range(3, N, 2):
     now = datetime.now()
     stamp = mktime(now.timetuple())
     today = format_date_time(stamp)
+    if not os.path.isdir(path):
+        os.mkdir(path)
     if os.path.isfile(path+'.last_date'):
         with open(path+'.last_date','r') as f:
             last = f.read()
     else:
-        os.mkdir(path)
         last = "Sat, 19 Aug 2023 20:33:29 GMT"
     last = convert_time(last)
 
