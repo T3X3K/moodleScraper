@@ -1,7 +1,11 @@
+**Table of Content**
+1. [Moodle Scraper](#moodle-scraper)
+2. [Google Searcher](#googlepy)
+
 # Moodle Scraper
 If you're using the Moodle.org platform for your Uni courses, this utility will allow you to download 
 all files from your courses. So far, this program is built to work on University of Padoa's moodle page,
-more precisely the stem.elearning page.
+more precisely the stem.elearning page, but it can be easily adapted to other platforms.
 
 ## Usage
 From the command line use the command (after having downloaded the [required stuff](#required-stuff))
@@ -35,20 +39,20 @@ where you've installed in the webdriver_service, around line 20.
 
 ## Crashes 
 So far, it crashes for two reasons
-1. fails to login because sometimes it's naughty
+1. fails to login because it's naughty
 2. has to open files with weird names
 3. bonus: expired password
 
-Luckily, 99% it crashes because of problem n. 1. The simple solutio is to execute multiple times
+Luckily, 99% of times it crashes because of problem n. 1. The simple solution is to execute multiple times
 the program until it works.
 It can be annoying, so what I do is I use a while loop to tell the bash terminal to rerun the program 
 until it works. This can be done this way:
 ```bash
-while true; do ./out && break; done
+while true; do out && break; done
 ```
-where out is a bash file where I've written the command
+where `out` stands for the command
 ```bash
-python3 moodleScraper.py <username> <password> <course_link> <path>
+python3 moodleScraper.py <username> <password> <course_link> <path> 2>> .err.txt
 ```
 
 ### Fails to login
@@ -59,7 +63,8 @@ couple of times and it will work.
 ### Has to open files with weird names
 Originally, if the file had '(', ')' or '/' in its name, the program would crash. Now it will substitute this 
 characters with others because of the 
-`linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])'.
+`linkers.append([a['href'],a.get_text().replace('(','').replace(')','').replace(' ','_').replace('/','.')])`
+line.
 If you have any ideas on why this happens and you have a more general solution for this problem, 
 feel free to help. It hasn't happened in a while, and I've started to think it was just a coincidence and
 something else might have been the problem. Dunno, should check someday.
@@ -78,10 +83,6 @@ happy if you want to contribute.
 When on the main course page, the program will download everything as pdf. Of course, in the future 
 the program needs to assign the right extension to each file.
 
-### Subfolders
-Maybe it would be nice if the scraper didn't just download all the files together. Rather, it may be cool
-if it created subfolders. Have to think about it. 
-
 ### Password Problems
 After a while, your password may expire. This program does not yet know when this happens. It would be 
 important in future updates to understand when this occurs, and possibily to allow you to update it from 
@@ -89,7 +90,7 @@ command line prompt.
 
 ### Safari and mozzila-driver
 I guess not everybody uses chrome, and thus some people would prefer if there was the option to 
-have another driver instead of the chromedriver
+have another driver instead of the chromedriver.
 
 ## FAQ
 
